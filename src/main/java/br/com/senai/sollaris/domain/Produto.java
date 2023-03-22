@@ -27,13 +27,12 @@ public class Produto implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
 	
 	@ManyToOne
 	private Empresa empresa;
 	private String nome;
 	private String descricao;
-	private double preco;
+	private Double preco;
 	private String img;
 	
 	@ManyToOne
