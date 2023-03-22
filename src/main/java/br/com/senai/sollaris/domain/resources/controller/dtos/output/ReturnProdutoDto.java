@@ -1,5 +1,6 @@
 package br.com.senai.sollaris.domain.resources.controller.dtos.output;
 
+import br.com.senai.sollaris.domain.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,8 @@ public class ReturnProdutoDto {
 	private String img;
 	private String subCategoria;
 	private Integer quantidade;
+	
+	public ReturnProdutoDto(Produto produto) {
+		
+	}
 }
