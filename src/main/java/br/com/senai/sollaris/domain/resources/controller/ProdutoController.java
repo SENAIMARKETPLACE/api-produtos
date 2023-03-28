@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,13 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/{id}")
-	public void listarProduto(@PathVariable Long id) {
-		produtoService.listarProduto(id);
+	public ResponseEntity<ReturnProdutoDto> listarProduto(@PathVariable Long id) {
+		return produtoService.listarProduto(id);
 	}
+	
+	@DeleteMapping("/{id}")
+	public void excluirProduto(@PathVariable Long id) {
+		produtoService.excluirProduto(id);
+	}
+	
 }
