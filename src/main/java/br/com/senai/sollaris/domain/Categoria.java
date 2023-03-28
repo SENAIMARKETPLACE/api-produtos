@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "categorias")
 public class Categoria {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

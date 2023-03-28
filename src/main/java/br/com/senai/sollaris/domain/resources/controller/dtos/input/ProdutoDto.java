@@ -16,6 +16,12 @@ public class ProdutoDto {
 	private Long empresa_id;
 	
 	@NotBlank
+	private String categoria;
+	
+	@NotBlank
+	private String sub_categoria;
+	
+	@NotBlank
 	private String nome;
 	
 	@NotBlank
@@ -23,11 +29,12 @@ public class ProdutoDto {
 	
 	@NotNull
 	private Double preco;
+	
 	@NotBlank
 	private String img;
 	
 	@NotBlank
-	private String subCategoria;
+	private String publico;
 	
 	@NotNull
 	private Integer quantidade;

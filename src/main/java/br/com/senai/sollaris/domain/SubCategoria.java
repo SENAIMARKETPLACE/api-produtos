@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "sub_categorias")
 public class SubCategoria {
 	
 	@Id @GeneratedValue

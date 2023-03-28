@@ -30,6 +30,7 @@ public class Produto implements Serializable{
 	
 	@ManyToOne
 	private Empresa empresa;
+	
 	private String nome;
 	private String descricao;
 	private Double preco;
@@ -37,6 +38,8 @@ public class Produto implements Serializable{
 	
 	@ManyToOne
 	private SubCategoria subCategoria;
+	
+	private String publico;
 	private Integer quantidade;
 	
 	
