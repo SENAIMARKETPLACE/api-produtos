@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.controller.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.ProdutoService;
 
@@ -32,8 +35,8 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public void cadastrarProduto() {
-		produtoService.cadastrarProduto();
+	public void cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
+		produtoService.cadastrarProduto(produtoDto, uriBuilder);
 	}
 	
 	@DeleteMapping("/{id}")

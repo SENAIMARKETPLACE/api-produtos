@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.senai.sollaris.domain.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +25,6 @@ public class Empresa {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;
 	private String nome_fantasia;
 	private String razao_social;
