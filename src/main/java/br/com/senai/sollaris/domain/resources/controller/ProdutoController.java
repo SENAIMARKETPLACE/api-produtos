@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.senai.sollaris.data.model.ReturnEmpresaDto;
 import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
+import br.com.senai.sollaris.domain.resources.controller.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.controller.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.ProdutoService;
 
@@ -35,8 +38,13 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public void cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
-		produtoService.cadastrarProduto(produtoDto, uriBuilder);
+	public ReturnEmpresaDto cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
+		return produtoService.cadastrarProduto(produtoDto, uriBuilder);
+	}
+	
+	@PutMapping("{id}")
+	public void alterarProduto(@PathVariable Long id, PutProdutoDto ProdutoDto) {
+		produtoService.alterarProduto(id, ProdutoDto);
 	}
 	
 	@DeleteMapping("/{id}")

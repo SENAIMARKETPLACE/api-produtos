@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.senai.sollaris.data.model.ReturnEmpresaDto;
 
-@FeignClient(name = "api_empresa", url = "http://localhost:8000")
+@FeignClient(name = "api-empresa", url = "http://localhost:8000")
 public interface EmpresaFeign {
 	
-	@GetMapping("/{id}")
+	@GetMapping("/api/business/{id}")
 	public ResponseEntity<ReturnEmpresaDto> retornarEmpresa(@PathVariable Long id);
 }
