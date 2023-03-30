@@ -36,4 +36,11 @@ public class Empresa {
 	
 	@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
 	private List<Produto> produtos;
+	
+	public Empresa(ReturnEmpresaDto returnEmpresaDto) {
+		this.id = returnEmpresaDto.getId();
+		this.nome_fantasia = returnEmpresaDto.getNome_fantasia();
+		this.cnpj = returnEmpresaDto.getCnpj();
+		this.telefone = returnEmpresaDto.getTelefone();
+	}
 }

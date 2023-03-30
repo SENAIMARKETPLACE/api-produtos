@@ -20,6 +20,12 @@ public class ReturnProdutoDto {
 	private Integer quantidade;
 	
 	public ReturnProdutoDto(Produto produto) {
-		
+		this.id = produto.getId();
+		this.nome = produto.getDescricao();
+		this.descricao = produto.getDescricao();
+		this.preco = produto.getPreco();
+		this.img = produto.getImg();
+		this.subCategoria = produto.getSubCategoria().getNome();
+		this.quantidade = produto.getQuantidade();
 	}
 }

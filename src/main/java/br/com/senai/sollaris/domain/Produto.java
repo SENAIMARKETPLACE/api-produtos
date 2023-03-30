@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.senai.sollaris.data.model.Empresa;
+import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,6 +24,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "produtos")
 public class Produto implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +44,17 @@ public class Produto implements Serializable{
 	private String publico;
 	private Integer quantidade;
 	
-	
+	public Produto(ProdutoDto produtoDto, SubCategoria sub_categoria, Empresa empresa) {
+		//Foreign keys
+		this.empresa = empresa;
+		this.subCategoria = sub_categoria;
+		
+		//Attributes
+		this.nome = produtoDto.getNome();
+		this.descricao = produtoDto.getDescricao();
+		this.preco = produtoDto.getPreco();
+		this.img = produtoDto.getImg();
+		this.publico = produtoDto.getPublico();
+		this.quantidade = produtoDto.getQuantidade();
+	}
 }

@@ -38,8 +38,8 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ReturnEmpresaDto cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
-		return produtoService.cadastrarProduto(produtoDto, uriBuilder);
+	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
+		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
 	}
 	
 	@PutMapping("{id}")
