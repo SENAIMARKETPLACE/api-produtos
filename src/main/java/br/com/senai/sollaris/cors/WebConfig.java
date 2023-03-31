@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer{
 	// * SIGNIFICA QUE TUDO ESTÁ LIBERADO
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("localhost:3000")
+		registry.addMapping("http://localhost:3000")
 		.allowedOrigins("*")
 		.allowedHeaders("*")
 		.allowedMethods("GET","POST","PUT","DELETE");

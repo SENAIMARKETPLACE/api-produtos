@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import br.com.senai.sollaris.data.model.Empresa;
 import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
+import br.com.senai.sollaris.domain.resources.controller.dtos.input.PutProdutoDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -56,5 +57,23 @@ public class Produto implements Serializable{
 		this.img = produtoDto.getImg();
 		this.publico = produtoDto.getPublico();
 		this.quantidade = produtoDto.getQuantidade();
+	}
+
+	public void atualizarInformacoes(PutProdutoDto produtoDto) {
+		
+		if (produtoDto.getNome() != null)
+			this.nome = produtoDto.getNome();
+		
+		if (produtoDto.getDescricao() != null)
+			this.descricao = produtoDto.getDescricao();
+		
+		if (produtoDto.getPreco() != null)
+			this.preco = produtoDto.getPreco();
+		
+		if (produtoDto.getPublico() != null)
+			this.publico = produtoDto.getPublico();
+		
+		if (produtoDto.getQuantidade() != null)
+			this.quantidade = produtoDto.getQuantidade();
 	}
 }

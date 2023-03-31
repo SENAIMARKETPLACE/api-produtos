@@ -24,6 +24,7 @@ import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.controller.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.controller.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.CategoriaNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
@@ -99,7 +100,8 @@ public class ProdutoService {
 	
 	@Transactional
 	public void alterarProduto(Long id, PutProdutoDto produtoDto) {
-		
+		Produto produto = produtoRepository.findById(id).orElseThrow(() -> new DadosInvalidosException("Produto não localizado!"));
+		produto.atualizarInformacoes(produtoDto);
 	}
 	
 	@Transactional

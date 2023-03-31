@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
 
 @ControllerAdvice
@@ -45,6 +46,18 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(EmpresaFeignNaoEncontrada.class)
 	protected ResponseEntity<Object> handleEmpresaFeign(EmpresaFeignNaoEncontrada ex, 
+			HttpStatus status, HttpServletRequest requestPath, WebRequest request, HttpHeaders headers) {
+		
+		status = HttpStatus.BAD_REQUEST;
+		
+		RespostaException exception = new RespostaException(ex, status, requestPath);
+		
+		return handleExceptionInternal(ex, exception, headers, status, request);
+		
+	}
+	
+	@ExceptionHandler(DadosInvalidosException.class)
+	protected ResponseEntity<Object> handleEmpresaFeign(DadosInvalidosException ex, 
 			HttpStatus status, HttpServletRequest requestPath, WebRequest request, HttpHeaders headers) {
 		
 		status = HttpStatus.BAD_REQUEST;
