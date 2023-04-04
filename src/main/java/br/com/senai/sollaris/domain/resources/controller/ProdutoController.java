@@ -42,13 +42,13 @@ public class ProdutoController {
 	}
 	
 	@PutMapping("{id}")
-	public void alterarProduto(@PathVariable Long id, PutProdutoDto ProdutoDto) {
-		produtoService.alterarProduto(id, ProdutoDto);
+	public ResponseEntity<ReturnProdutoDto> alterarProduto(@PathVariable Long id, @RequestBody PutProdutoDto ProdutoDto) {
+		return produtoService.alterarProduto(id, ProdutoDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void excluirProduto(@PathVariable Long id) {
-		produtoService.excluirProduto(id);
+	public ResponseEntity<Object> excluirProduto(@PathVariable Long id) {
+		return produtoService.excluirProduto(id);
 	}
 	
 }

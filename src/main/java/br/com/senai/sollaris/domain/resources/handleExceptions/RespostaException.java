@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,6 +47,14 @@ public class RespostaException {
 	}
 
 	public RespostaException(DadosInvalidosException ex, HttpStatus status, HttpServletRequest requestPath) {
+		this.titulo = ex.getMessage();
+		this.Url = requestPath.getRequestURL();
+		this.recurso = requestPath.getRequestURI();
+		this.status = status.value();
+		this.dataRequisicao = LocalDateTime.now();
+	}
+
+	public RespostaException(ObjetoNaoEncontradoException ex, HttpStatus status, HttpServletRequest requestPath) {
 		this.titulo = ex.getMessage();
 		this.Url = requestPath.getRequestURL();
 		this.recurso = requestPath.getRequestURI();

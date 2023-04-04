@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 
 @ControllerAdvice
 public class HandleExceptions extends ResponseEntityExceptionHandler{
@@ -45,26 +46,35 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	}
 	
 	@ExceptionHandler(EmpresaFeignNaoEncontrada.class)
-	protected ResponseEntity<Object> handleEmpresaFeign(EmpresaFeignNaoEncontrada ex, 
-			HttpStatus status, HttpServletRequest requestPath, WebRequest request, HttpHeaders headers) {
+	protected ResponseEntity<Object> handleEmpresaFeign(EmpresaFeignNaoEncontrada ex, HttpServletRequest requestPath) {
 		
-		status = HttpStatus.BAD_REQUEST;
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		RespostaException exception = new RespostaException(ex, status, requestPath);
 		
-		return handleExceptionInternal(ex, exception, headers, status, request);
+		return ResponseEntity.status(status).body(exception);
 		
 	}
 	
 	@ExceptionHandler(DadosInvalidosException.class)
-	protected ResponseEntity<Object> handleEmpresaFeign(DadosInvalidosException ex, 
-			HttpStatus status, HttpServletRequest requestPath, WebRequest request, HttpHeaders headers) {
+	protected ResponseEntity<Object> handleEmpresaFeign(DadosInvalidosException ex, HttpServletRequest requestPath) {
 		
-		status = HttpStatus.BAD_REQUEST;
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		RespostaException exception = new RespostaException(ex, status, requestPath);
 		
-		return handleExceptionInternal(ex, exception, headers, status, request);
+		return ResponseEntity.status(status).body(exception);
+		
+	}
+	
+	@ExceptionHandler(ObjetoNaoEncontradoException.class)
+	protected ResponseEntity<Object> handleEmpresaFeign(ObjetoNaoEncontradoException ex, HttpServletRequest requestPath) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		RespostaException exception = new RespostaException(ex, status, requestPath);
+		
+		return ResponseEntity.status(status).body(exception);
 		
 	}
 }

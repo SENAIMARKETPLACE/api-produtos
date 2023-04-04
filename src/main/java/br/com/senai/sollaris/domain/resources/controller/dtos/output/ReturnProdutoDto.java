@@ -16,7 +16,8 @@ public class ReturnProdutoDto {
 	private String descricao;
 	private Double preco;
 	private String img;
-	private String subCategoria;
+	private String publico;
+	private String sub_categoria;
 	private Integer quantidade;
 	
 	public ReturnProdutoDto(Produto produto) {
@@ -25,7 +26,8 @@ public class ReturnProdutoDto {
 		this.descricao = produto.getDescricao();
 		this.preco = produto.getPreco();
 		this.img = produto.getImg();
-		this.subCategoria = produto.getSubCategoria().getNome();
+		this.publico = produto.getPublico();
+		this.sub_categoria = produto.getSubCategoria().getNome();
 		this.quantidade = produto.getQuantidade();
 	}
 }
