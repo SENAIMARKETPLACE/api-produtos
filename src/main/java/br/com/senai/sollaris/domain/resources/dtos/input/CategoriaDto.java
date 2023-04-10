@@ -1,4 +1,6 @@
-package br.com.senai.sollaris.domain.resources.controller.dtos.input;
+package br.com.senai.sollaris.domain.resources.dtos.input;
+
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,5 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CategoriaDto {
 	
+	@NotNull
 	private String nome;
 }

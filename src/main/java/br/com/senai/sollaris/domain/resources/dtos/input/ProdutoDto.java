@@ -1,4 +1,4 @@
-package br.com.senai.sollaris.domain.resources.controller.dtos.input;
+package br.com.senai.sollaris.domain.resources.dtos.input;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

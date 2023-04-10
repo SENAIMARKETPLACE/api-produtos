@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.senai.sollaris.data.model.Empresa;
-import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
-import br.com.senai.sollaris.domain.resources.controller.dtos.input.PutProdutoDto;
+import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
+import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

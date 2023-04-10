@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.senai.sollaris.domain.resources.controller.dtos.input.ProdutoDto;
-import br.com.senai.sollaris.domain.resources.controller.dtos.input.PutProdutoDto;
-import br.com.senai.sollaris.domain.resources.controller.dtos.output.ReturnProdutoDto;
+import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
+import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
+import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.ProdutoService;
 
 @RestController

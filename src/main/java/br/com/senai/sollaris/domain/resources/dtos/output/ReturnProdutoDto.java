@@ -1,4 +1,4 @@
-package br.com.senai.sollaris.domain.resources.controller.dtos.output;
+package br.com.senai.sollaris.domain.resources.dtos.output;
 
 import br.com.senai.sollaris.domain.Produto;
 import lombok.AllArgsConstructor;

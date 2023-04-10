@@ -1,5 +1,6 @@
-package br.com.senai.sollaris.domain.resources.controller.dtos.output;
+package br.com.senai.sollaris.domain.resources.dtos.output;
 
+import br.com.senai.sollaris.domain.SubCategoria;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,9 @@ public class ReturnSubCategoriaDto {
 	
 	private Integer id;
 	private String nome;
+	
+	public ReturnSubCategoriaDto(SubCategoria subCategoria) {
+		this.id = subCategoria.getId();
+		this.nome = subCategoria.getNome();
+	}
 }
