@@ -33,8 +33,7 @@ public class CategoriaService {
 		
 	}
 	
-	public void cadastrarCategoria(@Valid CategoriaDto categoriaDto, UriComponentsBuilder uriBuilder) {
-		// TODO Auto-generated method stub
+	public void cadastrarCategoria(CategoriaDto categoriaDto, UriComponentsBuilder uriBuilder) {
 		
 	}
 

@@ -71,7 +71,7 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(ObjetoNaoEncontradoException.class)
 	protected ResponseEntity<Object> handleEmpresaFeign(ObjetoNaoEncontradoException ex, HttpServletRequest requestPath) {
 		
-		HttpStatus status = HttpStatus.BAD_REQUEST;
+		HttpStatus status = HttpStatus.NOT_FOUND;
 		
 		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
