@@ -25,6 +25,7 @@ import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.CategoriaNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
 import feign.FeignException;
@@ -52,6 +53,16 @@ public class ProdutoService {
 		return ResponseEntity.ok(produtoRepository.findById(id)
 				.map(ReturnProdutoDto::new)
 				.orElseThrow(() -> new ObjetoNaoEncontradoException("Produto não encontrado!")));
+		
+	}
+	
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorEmpresa(Long id, Pageable pageable) {
+		Page<ReturnProdutoDto> page = produtoRepository.findByEmpresa_id(id, pageable).map(ReturnProdutoDto::new);
+		
+		if (page.isEmpty())
+			throw new EmpresaNaoEncontradaException("Não existe nenhum produto vinculado para essa empresa");
+		
+		return ResponseEntity.ok(page);
 		
 	}
 	
@@ -116,4 +127,6 @@ public class ProdutoService {
 		
 		return ResponseEntity.notFound().build();
 	}
+
+
 }

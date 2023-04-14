@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 
 @ControllerAdvice
@@ -50,7 +51,7 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
-		RespostaException exception = new RespostaException(ex, status, requestPath);
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
 		return ResponseEntity.status(status).body(exception);
 		
@@ -61,7 +62,7 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
-		RespostaException exception = new RespostaException(ex, status, requestPath);
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
 		return ResponseEntity.status(status).body(exception);
 		
@@ -72,7 +73,18 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
-		RespostaException exception = new RespostaException(ex, status, requestPath);
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
+		
+		return ResponseEntity.status(status).body(exception);
+		
+	}
+	
+	@ExceptionHandler(EmpresaNaoEncontradaException.class)
+	protected ResponseEntity<Object> handleEmpresaFeign(EmpresaNaoEncontradaException ex, HttpServletRequest requestPath) {
+		
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
 		return ResponseEntity.status(status).body(exception);
 		

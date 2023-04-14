@@ -36,6 +36,11 @@ public class ProdutoController {
 		return produtoService.listarProduto(id);
 	}
 	
+	@GetMapping("my_products/{id}")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorEmpresa(@PathVariable Long id, Pageable pageable) {
+		return produtoService.listarProdutoPorEmpresa(id, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
