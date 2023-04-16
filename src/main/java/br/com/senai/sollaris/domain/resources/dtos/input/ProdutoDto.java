@@ -16,10 +16,10 @@ public class ProdutoDto {
 	private Long empresa_id;
 	
 	@NotBlank
-	private String categoria;
+	private Integer categoria_id;
 	
 	@NotBlank
-	private String sub_categoria;
+	private Integer sub_categoria_id;
 	
 	@NotBlank
 	private String nome;
