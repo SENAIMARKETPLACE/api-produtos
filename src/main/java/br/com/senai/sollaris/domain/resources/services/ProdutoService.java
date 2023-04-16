@@ -1,7 +1,6 @@
 package br.com.senai.sollaris.domain.resources.services;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -19,15 +18,14 @@ import br.com.senai.sollaris.domain.Produto;
 import br.com.senai.sollaris.domain.SubCategoria;
 import br.com.senai.sollaris.domain.repositories.CategoriaRepository;
 import br.com.senai.sollaris.domain.repositories.ProdutoRepository;
-import br.com.senai.sollaris.domain.repositories.SubCategoriaRepository;
 import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
-import br.com.senai.sollaris.domain.resources.services.exceptions.CategoriaNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
-import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +34,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class ProdutoService {
-	
-	
 	private final Environment env;
 	private final EmpresaFeign empresaFeign;
 	private final ProdutoRepository produtoRepository;
-	private final CategoriaRepository categoriaRepository;
-	private final SubCategoriaRepository subCategoriaRepository;
+	private final CategoriaService categoriaService;
+	private final ValidationService validationService;
 	
 	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutos(Pageable pageable) {
 		return ResponseEntity.ok(produtoRepository.findAll(pageable)
@@ -69,43 +65,28 @@ public class ProdutoService {
 	@Transactional
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		log.info("EMPRESA_SERVICE ::: Get Request on " + env.getProperty("local.server.port") + " port");
-		Produto produto;
 		
 		try {
 			//Busca a empresa e valida se existe
 			ReturnEmpresaDto returnEmpresaDto = empresaFeign.retornarEmpresa(produtoDto.getEmpresa_id()).getBody();
 			Empresa empresa = new Empresa(returnEmpresaDto);
 			
-			//Busca a categoria pelo nome e valida se existe
-			Categoria categoria =  categoriaRepository.findByNome(produtoDto.getCategoria())
-				.orElseThrow(() -> new CategoriaNaoEncontradoException("Esta categoria não existe"));
+			//Busca a categoria pelo id e valida se existe
+			Categoria categoria =  categoriaService.buscarCategoria(produtoDto.getCategoria_id());
 			
-			//Busca a sub_categoria pela categoria_id e devolve uma lista
-			List<SubCategoria> listaSubCategoria = subCategoriaRepository
-						.findByCategoria_id(categoria.getId())
-						.orElseThrow(() -> new SubCategoriaNaoEncontradoException("Não há nenhuma sub_categoria!"));
+			//Valida subCategoria pela StreamAPI (Filter)
+			SubCategoria subCategoria = validationService.validarSubCategoria(categoria, produtoDto.getSub_categoria_id());
 			
-			for (SubCategoria sub_categoria : listaSubCategoria) {
+			Produto produto = new Produto(produtoDto, subCategoria, empresa);
+		    produtoRepository.save(produto);
+
+		    URI uri = uriBuilder.path("/api/products/{id}").buildAndExpand(produto.getId()).toUri();
+
+		    return ResponseEntity.created(uri).body(new ReturnProdutoDto(produto));
 				
-				if (sub_categoria.getNome().equals(produtoDto.getSub_categoria())) {
-					produto = new Produto(produtoDto, sub_categoria, empresa);
-					produtoRepository.save(produto);
-					
-					URI uri = uriBuilder.path("/api/products/{id}").buildAndExpand(produto.getId()).toUri();
-					return ResponseEntity.created(uri).body(new ReturnProdutoDto(produto));
-				}
-				
-			}
-			
-			
-		} catch (IllegalArgumentException e) {
-			
 		} catch (FeignException.InternalServerError ex) {
 			throw new EmpresaFeignNaoEncontrada("Empresa não foi localizada!");
 		}
-		
-		return ResponseEntity.badRequest().build();
-		
 	}
 	
 	@Transactional
@@ -127,6 +108,5 @@ public class ProdutoService {
 		
 		return ResponseEntity.notFound().build();
 	}
-
 
 }

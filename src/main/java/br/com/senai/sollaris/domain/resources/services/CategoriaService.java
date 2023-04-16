@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.senai.sollaris.domain.Categoria;
 import br.com.senai.sollaris.domain.repositories.CategoriaRepository;
 import br.com.senai.sollaris.domain.resources.dtos.input.CategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnCategoriaDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.CategoriaNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -31,6 +33,12 @@ public class CategoriaService {
 				.map(ReturnCategoriaDto::new)
 				.orElseThrow(() -> new CategoriaNaoEncontradoException("Categoria não encontrada no sistema!")));
 		
+	}
+	
+	//Utilizado pelo ProdutoService
+	public Categoria buscarCategoria(Integer id) {
+		return categoriaRepository.findById(id)
+				.orElseThrow(() -> new DadosInvalidosException("Categoria inválida, tente novamente"));
 	}
 	
 	public void cadastrarCategoria(CategoriaDto categoriaDto, UriComponentsBuilder uriBuilder) {
