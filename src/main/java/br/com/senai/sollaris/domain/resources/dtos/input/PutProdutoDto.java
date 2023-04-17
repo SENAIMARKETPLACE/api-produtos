@@ -11,6 +11,8 @@ import lombok.Setter;
 public class PutProdutoDto {
 	
 	private String nome;
+	private Integer categoria_id;
+	private Integer sub_categoria_id;
 	private String descricao;
 	private Double preco;
 	private String img;

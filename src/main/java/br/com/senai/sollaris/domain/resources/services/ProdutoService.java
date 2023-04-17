@@ -16,12 +16,10 @@ import br.com.senai.sollaris.data.model.ReturnEmpresaDto;
 import br.com.senai.sollaris.domain.Categoria;
 import br.com.senai.sollaris.domain.Produto;
 import br.com.senai.sollaris.domain.SubCategoria;
-import br.com.senai.sollaris.domain.repositories.CategoriaRepository;
 import br.com.senai.sollaris.domain.repositories.ProdutoRepository;
 import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
-import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
@@ -94,9 +92,17 @@ public class ProdutoService {
 		Produto produto = produtoRepository.findById(id)
 				.orElseThrow(() -> new ObjetoNaoEncontradoException("Produto não localizado!"));
 		
-		produto.atualizarInformacoes(produtoDto);
+		Categoria categoria =  categoriaService.buscarCategoria(produtoDto.getCategoria_id());
 		
-		return ResponseEntity.ok(new ReturnProdutoDto(produto));
+		SubCategoria subCategoria = validationService.validarSubCategoria(categoria, produtoDto.getSub_categoria_id());
+		
+		//vai validar se este produto contém a mesma categoria_id e sub_categoria_id
+		if (validationService.validarAlteracaoProduto(produto, produtoDto)) {
+			produto.atualizarInformacoes(produtoDto, categoria, subCategoria);
+			return ResponseEntity.ok(new ReturnProdutoDto(produto));
+		}
+		
+	//nova exception
 	}
 	
 	@Transactional

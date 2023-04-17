@@ -59,10 +59,16 @@ public class Produto implements Serializable{
 		this.quantidade = produtoDto.getQuantidade();
 	}
 
-	public void atualizarInformacoes(PutProdutoDto produtoDto) {
+	public void atualizarInformacoes(PutProdutoDto produtoDto, Categoria categoria, SubCategoria subCategoria) {
 		
 		if (produtoDto.getNome() != null)
 			this.nome = produtoDto.getNome();
+		
+		if (produtoDto.getCategoria_id() != null)
+			this.subCategoria.setCategoria(categoria);
+		
+		if (produtoDto.getSub_categoria_id() != null)
+			this.subCategoria = subCategoria;
 		
 		if (produtoDto.getDescricao() != null)
 			this.descricao = produtoDto.getDescricao();
