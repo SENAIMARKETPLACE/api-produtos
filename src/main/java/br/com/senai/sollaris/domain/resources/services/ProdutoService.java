@@ -21,8 +21,8 @@ import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
-import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -103,6 +103,7 @@ public class ProdutoService {
 		}
 		
 	//nova exception
+		throw new ProdutoAlteradoException("Produto alterado ou id iguais");
 	}
 	
 	@Transactional

@@ -1,6 +1,6 @@
-package br.com.senai.sollaris.domain.resources.services.exceptions;
+package br.com.senai.sollaris.domain.resources.services;
 
-public class EmpresaNaoEncontradaException extends ObjetoNaoEncontradoException {
+public class EmpresaNaoEncontradaException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

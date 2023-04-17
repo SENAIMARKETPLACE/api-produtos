@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.senai.sollaris.domain.resources.services.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
-import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
 
 @ControllerAdvice
 public class HandleExceptions extends ResponseEntityExceptionHandler{
@@ -81,6 +82,17 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(EmpresaNaoEncontradaException.class)
 	protected ResponseEntity<Object> handleEmpresaFeign(EmpresaNaoEncontradaException ex, HttpServletRequest requestPath) {
+		
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
+		
+		return ResponseEntity.status(status).body(exception);
+		
+	}
+	
+	@ExceptionHandler(ProdutoAlteradoException.class)
+	protected ResponseEntity<Object> handleEmpresaFeign(ProdutoAlteradoException ex, HttpServletRequest requestPath) {
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		
