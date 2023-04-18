@@ -1,6 +1,7 @@
 package br.com.senai.sollaris.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -48,6 +49,8 @@ public class Produto implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Publico publico;
 	private Integer quantidade;
+	private LocalDateTime dt_registro;
+	private LocalDateTime dt_alteracao;
 	
 	public Produto(ProdutoDto produtoDto, SubCategoria sub_categoria, Empresa empresa) {
 		//Foreign keys
@@ -61,29 +64,17 @@ public class Produto implements Serializable{
 		this.img = produtoDto.getImg();
 		this.publico = produtoDto.getPublico();
 		this.quantidade = produtoDto.getQuantidade();
+		this.dt_registro = LocalDateTime.now();
 	}
 
 	public void atualizarInformacoes(PutProdutoDto produtoDto, Categoria categoria, SubCategoria subCategoria) {
-		
-		if (produtoDto.getNome() != null)
-			this.nome = produtoDto.getNome();
-		
-		if (produtoDto.getCategoria_id() != null)
-			this.subCategoria.setCategoria(categoria);
-		
-		if (produtoDto.getSub_categoria_id() != null)
-			this.subCategoria = subCategoria;
-		
-		if (produtoDto.getDescricao() != null)
-			this.descricao = produtoDto.getDescricao();
-		
-		if (produtoDto.getPreco() != null)
-			this.preco = produtoDto.getPreco();
-		
-		if (produtoDto.getPublico() != null)
-			this.publico = produtoDto.getPublico();
-		
-		if (produtoDto.getQuantidade() != null)
-			this.quantidade = produtoDto.getQuantidade();
+		this.nome = produtoDto.getNome();
+		this.subCategoria.setCategoria(categoria);
+		this.subCategoria = subCategoria;
+		this.descricao = produtoDto.getDescricao();
+		this.preco = produtoDto.getPreco();
+		this.publico = produtoDto.getPublico();
+		this.quantidade = produtoDto.getQuantidade();
+		this.dt_alteracao = LocalDateTime.now();
 	}
 }
