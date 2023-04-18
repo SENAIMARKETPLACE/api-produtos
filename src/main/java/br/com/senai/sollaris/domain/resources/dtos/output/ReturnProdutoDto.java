@@ -1,6 +1,7 @@
 package br.com.senai.sollaris.domain.resources.dtos.output;
 
 import br.com.senai.sollaris.domain.Produto;
+import br.com.senai.sollaris.domain.enums.Publico;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class ReturnProdutoDto {
 	private String descricao;
 	private Double preco;
 	private String img;
-	private String publico;
+	private Publico publico;
 	private ReturnProdutoCategoria categoria;
 	private Integer quantidade;
 	

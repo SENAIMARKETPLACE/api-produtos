@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.senai.sollaris.domain.resources.services.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.DadosInvalidosException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
 

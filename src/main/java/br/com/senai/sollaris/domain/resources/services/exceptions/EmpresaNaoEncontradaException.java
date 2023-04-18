@@ -1,4 +1,4 @@
-package br.com.senai.sollaris.domain.resources.services;
+package br.com.senai.sollaris.domain.resources.services.exceptions;
 
 public class EmpresaNaoEncontradaException extends RuntimeException {
 

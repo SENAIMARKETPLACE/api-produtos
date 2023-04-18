@@ -3,6 +3,8 @@ package br.com.senai.sollaris.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.senai.sollaris.data.model.Empresa;
+import br.com.senai.sollaris.domain.enums.Publico;
 import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import lombok.AllArgsConstructor;
@@ -42,7 +45,8 @@ public class Produto implements Serializable{
 	@ManyToOne
 	private SubCategoria subCategoria;
 	
-	private String publico;
+	@Enumerated(EnumType.STRING)
+	private Publico publico;
 	private Integer quantidade;
 	
 	public Produto(ProdutoDto produtoDto, SubCategoria sub_categoria, Empresa empresa) {

@@ -3,6 +3,7 @@ package br.com.senai.sollaris.domain.resources.dtos.input;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import br.com.senai.sollaris.domain.enums.Publico;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +35,7 @@ public class ProdutoDto {
 	private String img;
 	
 	@NotBlank
-	private String publico;
+	private Publico publico;
 	
 	@NotNull
 	private Integer quantidade;

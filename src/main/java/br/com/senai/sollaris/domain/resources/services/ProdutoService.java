@@ -21,6 +21,7 @@ import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
+import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
