@@ -2,6 +2,7 @@ package br.com.senai.sollaris.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.senai.sollaris.data.model.Empresa;
@@ -50,6 +52,9 @@ public class Produto implements Serializable{
 	private Publico publico;
 	private LocalDateTime dt_registro;
 	private LocalDateTime dt_alteracao;
+	
+	@OneToMany
+	private List<Produto_Detalhes> produto_Detalhes;
 	
 	public Produto(ProdutoDto produtoDto, SubCategoria sub_categoria, Empresa empresa) {
 		//Foreign keys
