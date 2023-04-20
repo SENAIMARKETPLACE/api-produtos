@@ -25,7 +25,6 @@ public class PutProdutoDto {
 	private Double preco;
 	@NotBlank
 	private String img;
-	private Publico publico;
 	@NotNull
-	private Integer quantidade;
+	private Publico publico;
 }

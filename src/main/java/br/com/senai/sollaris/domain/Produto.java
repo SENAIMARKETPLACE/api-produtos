@@ -48,7 +48,6 @@ public class Produto implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	private Publico publico;
-	private Integer quantidade;
 	private LocalDateTime dt_registro;
 	private LocalDateTime dt_alteracao;
 	
@@ -63,7 +62,6 @@ public class Produto implements Serializable{
 		this.preco = produtoDto.getPreco();
 		this.img = produtoDto.getImg();
 		this.publico = produtoDto.getPublico();
-		this.quantidade = produtoDto.getQuantidade();
 		this.dt_registro = LocalDateTime.now();
 	}
 
@@ -74,7 +72,6 @@ public class Produto implements Serializable{
 		this.descricao = produtoDto.getDescricao();
 		this.preco = produtoDto.getPreco();
 		this.publico = produtoDto.getPublico();
-		this.quantidade = produtoDto.getQuantidade();
 		this.dt_alteracao = LocalDateTime.now();
 	}
 }

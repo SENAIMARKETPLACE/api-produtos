@@ -1,5 +1,6 @@
 package br.com.senai.sollaris.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,6 +28,8 @@ public class SubCategoria {
 	@ManyToOne
 	private Categoria categoria;
 	private String nome;
+	private LocalDateTime dt_registro;
+	private LocalDateTime dt_alteracao;
 	
 	@OneToMany(mappedBy = "subCategoria")
 	private List<Produto> produto;
