@@ -1,19 +1,17 @@
 package br.com.senai.sollaris.domain.resources.dtos.input;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class SubCategoriaDto {
-	
-	private Long categoria_id;
-	
-	@NotNull
+@NoArgsConstructor
+@Getter @Setter
+public class PutSubCategoriaDto {
+
+	@NotBlank
 	private String nome;
 }
