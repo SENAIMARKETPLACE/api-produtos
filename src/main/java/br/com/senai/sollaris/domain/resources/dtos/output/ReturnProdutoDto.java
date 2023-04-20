@@ -22,13 +22,12 @@ public class ReturnProdutoDto {
 	
 	public ReturnProdutoDto(Produto produto) {
 		this.id = produto.getId();
-		this.nome = produto.getDescricao();
+		this.nome = produto.getNome();
 		this.descricao = produto.getDescricao();
 		this.preco = produto.getPreco();
 		this.img = produto.getImg();
 		this.publico = produto.getPublico();
 		this.categoria = new ReturnProdutoCategoria(produto);
-		this.quantidade = produto.getQuantidade();
 	}
 	
 

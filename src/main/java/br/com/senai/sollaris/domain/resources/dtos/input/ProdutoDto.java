@@ -36,7 +36,4 @@ public class ProdutoDto {
 	
 	@NotBlank
 	private Publico publico;
-	
-	@NotNull
-	private Integer quantidade;
 }

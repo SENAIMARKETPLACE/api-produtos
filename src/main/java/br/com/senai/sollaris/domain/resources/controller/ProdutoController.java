@@ -1,5 +1,7 @@
 package br.com.senai.sollaris.domain.resources.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,12 +44,12 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<ReturnProdutoDto> alterarProduto(@PathVariable Long id, @RequestBody PutProdutoDto ProdutoDto) {
+	public ResponseEntity<ReturnProdutoDto> alterarProduto(@PathVariable Long id, @RequestBody @Valid PutProdutoDto ProdutoDto) {
 		return produtoService.alterarProduto(id, ProdutoDto);
 	}
 	
