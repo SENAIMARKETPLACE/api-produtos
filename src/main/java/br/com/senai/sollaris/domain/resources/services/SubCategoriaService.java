@@ -11,15 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.senai.sollaris.domain.Categoria;
 import br.com.senai.sollaris.domain.SubCategoria;
-import br.com.senai.sollaris.domain.repositories.CategoriaRepository;
 import br.com.senai.sollaris.domain.repositories.SubCategoriaRepository;
-import br.com.senai.sollaris.domain.resources.dtos.input.PutCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutSubCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.SubCategoriaDto;
-import br.com.senai.sollaris.domain.resources.dtos.output.ReturnCategoriaDto;
-import br.com.senai.sollaris.domain.resources.dtos.output.ReturnCategoriaPut;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnSubCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnSubCategoriaPut;
 import br.com.senai.sollaris.domain.resources.services.exceptions.CategoriaNaoEncontradoException;

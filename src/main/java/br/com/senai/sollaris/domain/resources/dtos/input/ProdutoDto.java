@@ -1,5 +1,6 @@
 package br.com.senai.sollaris.domain.resources.dtos.input;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,10 +17,10 @@ public class ProdutoDto {
 	@NotNull
 	private Long empresa_id;
 	
-	@NotBlank
+	@NotNull
 	private Integer categoria_id;
 	
-	@NotBlank
+	@NotNull
 	private Integer sub_categoria_id;
 	
 	@NotBlank
@@ -34,6 +35,10 @@ public class ProdutoDto {
 	@NotBlank
 	private String img;
 	
-	@NotBlank
+	@NotNull
 	private Publico publico;
+	
+	@NotNull
+	@Valid
+	private Produto_DetalheDto detalhes_do_produto;
 }

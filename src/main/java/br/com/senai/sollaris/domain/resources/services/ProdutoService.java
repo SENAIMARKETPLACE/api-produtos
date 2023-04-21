@@ -15,8 +15,10 @@ import br.com.senai.sollaris.data.model.Empresa;
 import br.com.senai.sollaris.data.model.ReturnEmpresaDto;
 import br.com.senai.sollaris.domain.Categoria;
 import br.com.senai.sollaris.domain.Produto;
+import br.com.senai.sollaris.domain.Produto_Detalhes;
 import br.com.senai.sollaris.domain.SubCategoria;
 import br.com.senai.sollaris.domain.repositories.ProdutoRepository;
+import br.com.senai.sollaris.domain.repositories.Produto_DetalhesRepository;
 import br.com.senai.sollaris.domain.resources.dtos.input.ProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutProdutoDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
@@ -24,6 +26,7 @@ import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNa
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.Produto_DetalhesNaoVinculadoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +36,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class ProdutoService {
+	//Gerador de Log
 	private final Environment env;
+	
+	//Consultas
 	private final EmpresaFeign empresaFeign;
 	private final ProdutoRepository produtoRepository;
+	private final Produto_DetalhesRepository produto_DetalhesRepository;
 	private final CategoriaService categoriaService;
+	
+	//Validações
 	private final ValidationService validationService;
 	
 	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutos(Pageable pageable) {
@@ -78,6 +87,7 @@ public class ProdutoService {
 			
 			Produto produto = new Produto(produtoDto, subCategoria, empresa);
 		    produtoRepository.save(produto);
+		    produto.salvarDetalhes(produtoDto.getDetalhes_do_produto());
 
 		    URI uri = uriBuilder.path("/api/products/{id}").buildAndExpand(produto.getId()).toUri();
 
@@ -90,8 +100,12 @@ public class ProdutoService {
 	
 	@Transactional
 	public ResponseEntity<ReturnProdutoDto> alterarProduto(Long id, PutProdutoDto produtoDto) {
+		//Valida o Produto se existe
 		Produto produto = produtoRepository.findById(id)
 				.orElseThrow(() -> new ObjetoNaoEncontradoException("Produto não localizado!"));
+		
+		//Valida se o detalhe do produto está vinculado com Produto e
+		Produto_Detalhes produto_Detalhes = validationService.validarProdutoDetalhe(produto, produtoDto.getDetalhes_do_produto().getId());
 		
 		Categoria categoria =  categoriaService.buscarCategoria(produtoDto.getCategoria_id());
 		
@@ -99,7 +113,8 @@ public class ProdutoService {
 		
 		//vai validar se este produto contém a mesma categoria_id e sub_categoria_id
 		if (validationService.validarAlteracaoProduto(produto, produtoDto)) {
-			produto.atualizarInformacoes(produtoDto, categoria, subCategoria);
+			produto.atualizarInformacoes(produtoDto, subCategoria);
+			produto_Detalhes.atualizarInformacoes(produtoDto.getDetalhes_do_produto());
 			return ResponseEntity.ok(new ReturnProdutoDto(produto));
 		}
 		

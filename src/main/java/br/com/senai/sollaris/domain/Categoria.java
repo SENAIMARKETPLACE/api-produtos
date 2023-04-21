@@ -26,7 +26,6 @@ import lombok.Setter;
 @Table(name = "categorias")
 public class Categoria {
 	
-
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
