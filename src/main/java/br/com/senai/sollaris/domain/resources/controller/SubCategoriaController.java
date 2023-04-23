@@ -13,14 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.senai.sollaris.domain.resources.dtos.input.PutCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.PutSubCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.input.SubCategoriaDto;
-import br.com.senai.sollaris.domain.resources.dtos.output.ReturnCategoriaPut;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnSubCategoriaDto;
 import br.com.senai.sollaris.domain.resources.dtos.output.ReturnSubCategoriaPut;
 import br.com.senai.sollaris.domain.resources.services.SubCategoriaService;

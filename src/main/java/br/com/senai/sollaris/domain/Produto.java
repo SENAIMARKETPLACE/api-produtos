@@ -82,8 +82,8 @@ public class Produto implements Serializable{
 		this.dt_alteracao = LocalDateTime.now();
 	}
 
-	public void salvarDetalhes(Produto_DetalheDto detalhes_do_produto) {
-		produto_Detalhes.add(new Produto_Detalhes(detalhes_do_produto, this));
+	public void salvarDetalhes(Produto_DetalheDto produto_DetalheDto) {
+		produto_Detalhes.add(new Produto_Detalhes(produto_DetalheDto, this));
 		
 	}
 }

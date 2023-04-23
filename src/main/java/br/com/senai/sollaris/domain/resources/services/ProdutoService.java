@@ -26,7 +26,6 @@ import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNa
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
-import br.com.senai.sollaris.domain.resources.services.exceptions.Produto_DetalhesNaoVinculadoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -87,11 +86,13 @@ public class ProdutoService {
 			
 			Produto produto = new Produto(produtoDto, subCategoria, empresa);
 		    produtoRepository.save(produto);
-		    produto.salvarDetalhes(produtoDto.getDetalhes_do_produto());
+		    
+		    Produto_Detalhes produto_Detalhes = new Produto_Detalhes(produtoDto.getDetalhes_do_produto(), produto);
+		    produto_DetalhesRepository.save(produto_Detalhes);
 
 		    URI uri = uriBuilder.path("/api/products/{id}").buildAndExpand(produto.getId()).toUri();
 
-		    return ResponseEntity.created(uri).body(new ReturnProdutoDto(produto));
+		    return ResponseEntity.created(uri).body(new ReturnProdutoDto(produto, produto_Detalhes));
 				
 		} catch (FeignException.InternalServerError ex) {
 			throw new EmpresaFeignNaoEncontrada("Empresa não foi localizada!");
@@ -115,7 +116,7 @@ public class ProdutoService {
 		if (validationService.validarAlteracaoProduto(produto, produtoDto)) {
 			produto.atualizarInformacoes(produtoDto, subCategoria);
 			produto_Detalhes.atualizarInformacoes(produtoDto.getDetalhes_do_produto());
-			return ResponseEntity.ok(new ReturnProdutoDto(produto));
+			return ResponseEntity.ok(new ReturnProdutoDto(produto, produto_Detalhes));
 		}
 		
 	//nova exception

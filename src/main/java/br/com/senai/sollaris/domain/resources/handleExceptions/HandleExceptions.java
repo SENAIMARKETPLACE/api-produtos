@@ -97,7 +97,7 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(ProdutoAlteradoException.class)
 	protected ResponseEntity<Object> handleEmpresaFeign(ProdutoAlteradoException ex, HttpServletRequest requestPath) {
 		
-		HttpStatus status = HttpStatus.NOT_FOUND;
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
@@ -108,7 +108,7 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(Produto_DetalhesNaoVinculadoException.class)
 	protected ResponseEntity<Object> handleEmpresaFeign(Produto_DetalhesNaoVinculadoException ex, HttpServletRequest requestPath) {
 		
-		HttpStatus status = HttpStatus.NOT_FOUND;
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		
@@ -137,4 +137,5 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 		return ResponseEntity.status(status).body(exception);
 		
 	}
+	
 }

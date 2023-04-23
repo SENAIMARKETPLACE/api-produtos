@@ -3,6 +3,8 @@ package br.com.senai.sollaris.domain.resources.services;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +51,8 @@ public class SubCategoriaService {
 		
 		return ResponseEntity.ok(page);
 	}
-
+	
+	@Transactional
 	public ResponseEntity<ReturnSubCategoriaDto> cadastrarSubCategoria(SubCategoriaDto subCategoriaDto, UriComponentsBuilder uriBuilder){
 		
 		SubCategoria subCategoria = new SubCategoria(subCategoriaDto);
@@ -60,6 +63,7 @@ public class SubCategoriaService {
 		return ResponseEntity.created(uri).body(new ReturnSubCategoriaDto(subCategoria));
 	}
 	
+	@Transactional
 	public ResponseEntity<ReturnSubCategoriaPut> alterarSubCategoria(@PathVariable Integer id, PutSubCategoriaDto subCategoriaDto) {
 		Optional<SubCategoria> subCategoriaCaixa = subCategoriaRepository.findById(id);
 		
@@ -71,6 +75,7 @@ public class SubCategoriaService {
 			return ResponseEntity.notFound().build();
 	}
 	
+	@Transactional
 	public ResponseEntity<Object> deletarSubCategoria(Integer id) {
 		if (subCategoriaRepository.existsById(id)) {
 			subCategoriaRepository.deleteById(id);

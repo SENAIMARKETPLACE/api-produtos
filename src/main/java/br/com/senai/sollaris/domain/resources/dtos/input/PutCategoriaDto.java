@@ -1,7 +1,5 @@
 package br.com.senai.sollaris.domain.resources.dtos.input;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;

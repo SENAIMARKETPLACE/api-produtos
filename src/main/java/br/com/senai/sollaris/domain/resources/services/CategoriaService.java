@@ -3,6 +3,8 @@ package br.com.senai.sollaris.domain.resources.services;
 import java.net.URI;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class CategoriaService {
 				.orElseThrow(() -> new DadosInvalidosException("Categoria inválida, tente novamente"));
 	}
 	
-	
+	@Transactional
 	public ResponseEntity<ReturnCategoriaDto> cadastrarCategoria(CategoriaDto categoriaDto, UriComponentsBuilder uriBuilder) {
 		
 		Categoria categoria = new Categoria(categoriaDto);
@@ -57,7 +59,7 @@ public class CategoriaService {
 		
 	}
 
-
+	@Transactional
 	public ResponseEntity<ReturnCategoriaPut> alterarCategoria(@PathVariable Integer id, PutCategoriaDto categoriaDto) {
 		Optional<Categoria> categoriaCaixa = categoriaRepository.findById(id);
 		
@@ -70,6 +72,7 @@ public class CategoriaService {
 		
 	}
 	
+	@Transactional
 	public ResponseEntity<Object> deletarCategoria(Integer id) {
 		if (categoriaRepository.existsById(id)) {
 			categoriaRepository.deleteById(id);
