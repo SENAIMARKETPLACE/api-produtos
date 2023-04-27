@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.senai.sollaris.domain.Produto;
+import br.com.senai.sollaris.domain.SubCategoria;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
@@ -16,5 +17,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	Page<Produto> buscarPorEmpresa_id(@Param("id") Long id,Pageable pageable);
 	
 	Page<Produto> findByEmpresa_id(Long id, Pageable pageable);
+
+	Page<Produto> findBySubCategoria_id(Integer id, Pageable pageable);
 
 }

@@ -26,6 +26,7 @@ import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNa
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,20 @@ public class ProdutoService {
 		
 		return ResponseEntity.ok(page);
 		
+	}
+	
+	//Falta associar os produtos retornados para a empresa
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(Integer id, Pageable pageable) {
+		Page<Produto> pageSGDB = produtoRepository.findBySubCategoria_id(id, pageable);
+		
+		//Validação de Página
+		if (pageSGDB.isEmpty()) 
+			throw new SubCategoriaNaoEncontradoException("SubCategoria não encontrada no sistema");
+		
+		//Conversão de Página Entidade para Página DTO
+		Page<ReturnProdutoDto> page = pageSGDB.map(produto -> new ReturnProdutoDto(produto));
+		
+		return ResponseEntity.ok(page);
 	}
 	
 	@Transactional

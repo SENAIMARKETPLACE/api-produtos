@@ -43,6 +43,11 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorEmpresa(id, pageable);
 	}
 	
+	@GetMapping("my_products_subCategories/{id}")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(@PathVariable Integer id, Pageable pageable) {
+		return produtoService.listarProdutoPorSubCategoria(id, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
