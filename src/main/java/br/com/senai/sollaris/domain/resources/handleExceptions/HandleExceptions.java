@@ -24,6 +24,7 @@ import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNa
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
+import br.com.senai.sollaris.domain.resources.services.exceptions.Produto_DetalhesNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.Produto_DetalhesNaoVinculadoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
 
@@ -131,6 +132,17 @@ public class HandleExceptions extends ResponseEntityExceptionHandler{
 	protected ResponseEntity<Object> handleEmpresaFeign(SubCategoriaNaoEncontradoException ex, HttpServletRequest requestPath) {
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
+		
+		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
+		
+		return ResponseEntity.status(status).body(exception);
+		
+	}
+	
+	@ExceptionHandler(Produto_DetalhesNaoEncontradoException.class)
+	protected ResponseEntity<Object> handleEmpresaFeign(Produto_DetalhesNaoEncontradoException ex, HttpServletRequest requestPath) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
 		RespostaException exception = new RespostaException(ex.getMessage(), status.value(), requestPath);
 		

@@ -48,6 +48,12 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorSubCategoria(id, pageable);
 	}
 	
+	//Utilizado na API de Compra!
+	@GetMapping("detailed_product/{id}")
+	public ResponseEntity<ReturnProdutoDto> listarProduto_DetalhePorId(@PathVariable Integer id) {
+		return produtoService.listarProduto_DetalhePorId(id);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
