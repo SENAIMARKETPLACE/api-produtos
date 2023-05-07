@@ -88,7 +88,7 @@ public class ProdutoService {
 		
 		//Validação de Página
 		if (pageSGDB.isEmpty()) 
-			throw new SubCategoriaNaoEncontradoException("SubCategoria não encontrada no sistema");
+			throw new SubCategoriaNaoEncontradoException("SubCategoria_id ou Empresa_id inválidos, tente novamente");
 		
 		//Conversão de Página Entidade para Página DTO
 		Page<ReturnProdutoDto> page = pageSGDB.map(produto -> new ReturnProdutoDto(produto));
