@@ -81,8 +81,10 @@ public class ProdutoService {
 
 	
 	//Falta associar os produtos retornados para a empresa
-	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(Integer id, Pageable pageable) {
-		Page<Produto> pageSGDB = produtoRepository.findBySubCategoria_id(id, pageable);
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(Integer subCategoria_id, 
+			Long empresa_id, Pageable pageable) {
+		
+		Page<Produto> pageSGDB = produtoRepository.buscarProdutosPorSubCategoria(empresa_id, subCategoria_id, pageable);
 		
 		//Validação de Página
 		if (pageSGDB.isEmpty()) 

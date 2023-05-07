@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -43,9 +44,12 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorEmpresa(id, pageable);
 	}
 	
-	@GetMapping("my_products_subCategories/{id}")
-	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(@PathVariable Integer id, Pageable pageable) {
-		return produtoService.listarProdutoPorSubCategoria(id, pageable);
+	@GetMapping("my_products_subCategories")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorSubCategoria(
+			@RequestParam(name = "subCategoria", required = true) Integer subCategoria_id,
+			@RequestParam(name = "empresa", required = true) Long empresa_id, Pageable pageable) {
+		
+		return produtoService.listarProdutoPorSubCategoria(subCategoria_id, empresa_id, pageable);
 	}
 	
 	//Utilizado na API de Compra!
