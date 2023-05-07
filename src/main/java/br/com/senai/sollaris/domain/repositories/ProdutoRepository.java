@@ -20,5 +20,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Query("SELECT p FROM Produto p WHERE p.empresa.id = :empresa_id AND p.subCategoria.id = :subCategoria_id")
 	Page<Produto> buscarProdutosPorSubCategoria(@Param("empresa_id") Long empresa_id, 
 			@Param("subCategoria_id") Integer subCategoria_id,Pageable pageable);
+	
+	@Query("SELECT p FROM Produto p WHERE p.preco >= :preco_inicial AND p.preco <= :preco_final")
+	Page<Produto> buscarProdutoPorFaixaPreco(@Param("preco_inicial") Double precoInicial, 
+			@Param("preco_final") Double precoFinal, Pageable pageable);
 
 }

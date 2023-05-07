@@ -58,6 +58,14 @@ public class ProdutoController {
 		return produtoService.listarProduto_DetalhePorId(id);
 	}
 	
+	@GetMapping("prices")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorFaixaDePreco(
+			@RequestParam(required = true) Double precoInicial, 
+			@RequestParam(required = true) Double precoFinal, Pageable pageable) {
+		
+		return produtoService.listarProdutoPorFaixaPreco(precoInicial, precoFinal, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);

@@ -96,6 +96,14 @@ public class ProdutoService {
 		return ResponseEntity.ok(page);
 	}
 	
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorFaixaPreco(Double precoInicial, Double precoFinal, Pageable pageable) {
+		Page<ReturnProdutoDto> produtos = produtoRepository.buscarProdutoPorFaixaPreco(precoInicial, precoFinal, pageable)
+		.map(ReturnProdutoDto::new);
+		
+		return ResponseEntity.ok(produtos);
+		
+	}
+	
 	@Transactional
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		log.info("EMPRESA_SERVICE ::: Get Request on " + env.getProperty("local.server.port") + " port");
