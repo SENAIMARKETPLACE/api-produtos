@@ -24,5 +24,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	@Query("SELECT p FROM Produto p WHERE p.preco >= :preco_inicial AND p.preco <= :preco_final")
 	Page<Produto> buscarProdutoPorFaixaPreco(@Param("preco_inicial") Double precoInicial, 
 			@Param("preco_final") Double precoFinal, Pageable pageable);
+	
+	@Query("SELECT p FROM Produto p WHERE p.nome LIKE %:nome%")
+	Page<Produto> buscarProdutosPorNome(@Param("nome") String nome, Pageable pageable);
 
 }

@@ -66,6 +66,11 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorFaixaPreco(precoInicial, precoFinal, pageable);
 	}
 	
+	@GetMapping("products_name")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorNome(@RequestParam(required = true) String nome, Pageable pageable) {
+		return produtoService.listarProdutoPorNome(nome, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
