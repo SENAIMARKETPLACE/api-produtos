@@ -1,8 +1,7 @@
 package br.com.senai.sollaris.domain.resources.dtos.input;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import br.com.senai.sollaris.domain.enums.Publico;
 import lombok.AllArgsConstructor;
@@ -14,29 +13,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PutProdutoDto {
-	
-	@NotBlank
+	@NotEmpty
 	private String nome;
 	
-	@NotNull
 	private Integer categoria_id;
 	
-	@NotNull
 	private Integer sub_categoria_id;
 	
-	@NotBlank
+	@NotEmpty
 	private String descricao;
 	
-	@NotNull
 	private Double preco;
 	
-	@NotBlank
+	@NotEmpty
 	private String img;
 	
-	@NotNull
 	private Publico publico;
 	
-	@NotNull
 	@Valid
 	private PutProduto_DetalheDto detalhes_do_produto;
 	

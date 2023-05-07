@@ -48,10 +48,18 @@ public class Produto_Detalhes implements Serializable {
 	
 	//Usado para atualizar Produto_Detalhes
 	public void atualizarInformacoes(PutProduto_DetalheDto detalhes_do_produto) {
-		this.tamanho = detalhes_do_produto.getTamanho();
-		this.peso = detalhes_do_produto.getPeso();
-		this.cor = detalhes_do_produto.getCor();
-		this.quantidade = detalhes_do_produto.getQuantidade();
+		
+		if (detalhes_do_produto.getTamanho() != null)
+			this.tamanho = detalhes_do_produto.getTamanho();
+		
+		if (detalhes_do_produto.getPeso() != null)
+			this.peso = detalhes_do_produto.getPeso();
+		
+		if (detalhes_do_produto.getCor() != null)
+			this.cor = detalhes_do_produto.getCor();
+		
+		if (detalhes_do_produto.getQuantidade() != null)
+			this.quantidade = detalhes_do_produto.getQuantidade();
 		
 	}
 	

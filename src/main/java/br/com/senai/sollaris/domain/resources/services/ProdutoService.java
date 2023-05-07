@@ -25,7 +25,6 @@ import br.com.senai.sollaris.domain.resources.dtos.output.ReturnProdutoDto;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaFeignNaoEncontrada;
 import br.com.senai.sollaris.domain.resources.services.exceptions.EmpresaNaoEncontradaException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.ObjetoNaoEncontradoException;
-import br.com.senai.sollaris.domain.resources.services.exceptions.ProdutoAlteradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.Produto_DetalhesNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.exceptions.SubCategoriaNaoEncontradoException;
 import br.com.senai.sollaris.domain.resources.services.validations.ValidationService;
@@ -127,6 +126,7 @@ public class ProdutoService {
 	
 	@Transactional
 	public ResponseEntity<ReturnProdutoDto> alterarProduto(Long id, PutProdutoDto produtoDto) {
+		
 		//Valida o Produto se existe
 		Produto produto = produtoRepository.findById(id)
 				.orElseThrow(() -> new ObjetoNaoEncontradoException("Produto não localizado!"));
@@ -134,19 +134,27 @@ public class ProdutoService {
 		//Valida se o detalhe do produto está vinculado com Produto e
 		Produto_Detalhes produto_Detalhes = validationService.validarProdutoDetalhe(produto, produtoDto.getDetalhes_do_produto().getId());
 		
-		Categoria categoria =  categoriaService.buscarCategoria(produtoDto.getCategoria_id());
 		
-		SubCategoria subCategoria = validationService.validarSubCategoria(categoria, produtoDto.getSub_categoria_id());
-		
-		//vai validar se este produto contém a mesma categoria_id e sub_categoria_id
-		if (validationService.validarAlteracaoProduto(produto, produtoDto)) {
+		//Validar os campos Categoria_ID e SubCategoria_ID
+		//Alteração de Categoria com SubCategoria
+		if (validationService.validarCamposPutProdutoDto(produtoDto)) {
+			Categoria categoria =  categoriaService.buscarCategoria(produtoDto.getCategoria_id());
+			
+			SubCategoria subCategoria = validationService.validarSubCategoria(categoria, 
+					produtoDto.getSub_categoria_id());
+			
 			produto.atualizarInformacoes(produtoDto, subCategoria);
 			produto_Detalhes.atualizarInformacoes(produtoDto.getDetalhes_do_produto());
+			
 			return ResponseEntity.ok(new ReturnProdutoDto(produto, produto_Detalhes));
 		}
 		
-	//nova exception
-		throw new ProdutoAlteradoException("Produto alterado ou id iguais");
+		//Alteração do produto sem a categoria
+		produto.atualizarInformacoes(produtoDto);
+		produto_Detalhes.atualizarInformacoes(produtoDto.getDetalhes_do_produto());
+		
+		return ResponseEntity.ok(new ReturnProdutoDto(produto, produto_Detalhes));
+		
 	}
 	
 	@Transactional

@@ -47,6 +47,10 @@ public class CategoriaService {
 				.orElseThrow(() -> new DadosInvalidosException("Categoria inválida, tente novamente"));
 	}
 	
+	public Optional<Categoria> buscarOptionalCategoria(Integer id) {
+		return categoriaRepository.findById(id);
+	}
+	
 	@Transactional
 	public ResponseEntity<ReturnCategoriaDto> cadastrarCategoria(CategoriaDto categoriaDto, UriComponentsBuilder uriBuilder) {
 		

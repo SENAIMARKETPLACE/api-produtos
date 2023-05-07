@@ -37,4 +37,15 @@ public class ValidationService {
 				.orElseThrow(() -> 
 					new Produto_DetalhesNaoVinculadoException("Detalhes do Produto não vinculado com o Produto passado"));
 	}
+
+	public boolean validarCamposPutProdutoDto(PutProdutoDto produtoDto) {
+		if (produtoDto.getCategoria_id() != null && produtoDto.getSub_categoria_id() == null)
+			throw new DadosInvalidosException("É necessário alterar a subCategoria em conjunto!");
+		else if (produtoDto.getCategoria_id() == null && produtoDto.getSub_categoria_id() == null)
+			return false;
+		else 
+			return true;
+		
+		
+	}
 }
