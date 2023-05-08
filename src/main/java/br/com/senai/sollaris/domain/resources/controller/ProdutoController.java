@@ -71,6 +71,11 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorNome(nome, pageable);
 	}
 	
+	@GetMapping("categories/{id}")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCategoria(@PathVariable Integer id, Pageable pageable) {
+		return produtoService.listarProdutoPorCategoria(id, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);

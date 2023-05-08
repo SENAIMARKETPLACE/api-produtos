@@ -12,10 +12,12 @@ import br.com.senai.sollaris.domain.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
+	Page<Produto> findByEmpresa_id(Long id, Pageable pageable);
+	
+	Page<Produto> findBySubCategoria_Categoria_id(Integer id, Pageable pageable);
+	
 	@Query("SELECT p FROM Produto p WHERE p.empresa.id = :id")
 	Page<Produto> buscarPorEmpresa_id(@Param("id") Long id,Pageable pageable);
-	
-	Page<Produto> findByEmpresa_id(Long id, Pageable pageable);
 	
 	@Query("SELECT p FROM Produto p WHERE p.empresa.id = :empresa_id AND p.subCategoria.id = :subCategoria_id")
 	Page<Produto> buscarProdutosPorSubCategoria(@Param("empresa_id") Long empresa_id, 
@@ -27,5 +29,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
 	@Query("SELECT p FROM Produto p WHERE p.nome LIKE %:nome%")
 	Page<Produto> buscarProdutosPorNome(@Param("nome") String nome, Pageable pageable);
+
+	
 
 }

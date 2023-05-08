@@ -104,13 +104,23 @@ public class ProdutoService {
 		
 	}
 	
-	 public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorNome(String nome, Pageable pageable) {
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorNome(String nome, Pageable pageable) {
 			Page<ReturnProdutoDto> produtos = produtoRepository.buscarProdutosPorNome(nome, pageable)
 					.map(ReturnProdutoDto::new);
 			
 			return ResponseEntity.ok(produtos);
 			
-		}
+	}
+	 
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, Pageable pageable) {
+		Page<ReturnProdutoDto> produtos = produtoRepository.findBySubCategoria_Categoria_id(id, pageable)
+				.map(ReturnProdutoDto::new);
+			
+		if(produtos.isEmpty())
+			return ResponseEntity.ok(null);
+		
+		return ResponseEntity.ok(produtos);
+	}
 	
 	@Transactional
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
@@ -184,6 +194,5 @@ public class ProdutoService {
 		
 		return ResponseEntity.notFound().build();
 	}
-
 
 }
