@@ -1,5 +1,7 @@
 package br.com.senai.sollaris.domain.resources.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +74,7 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("categories/{id}")
-	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCategoria(@PathVariable Integer id, Pageable pageable) {
+	public ResponseEntity<List<ReturnProdutoDto>> listarProdutoPorCategoria(@PathVariable Integer id, Pageable pageable) {
 		return produtoService.listarProdutoPorCategoria(id, pageable);
 	}
 	

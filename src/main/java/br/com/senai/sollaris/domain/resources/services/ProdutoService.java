@@ -1,6 +1,8 @@
 package br.com.senai.sollaris.domain.resources.services;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -112,14 +114,18 @@ public class ProdutoService {
 			
 	}
 	 
-	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, Pageable pageable) {
+	public ResponseEntity<List<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, Pageable pageable) {
 		Page<ReturnProdutoDto> produtos = produtoRepository.findBySubCategoria_Categoria_id(id, pageable)
 				.map(ReturnProdutoDto::new);
 			
 		if(produtos.isEmpty())
 			return ResponseEntity.ok(null);
 		
-		return ResponseEntity.ok(produtos);
+		List<ReturnProdutoDto> listaProdutos = new ArrayList<>();
+		
+		produtos.forEach(produtos1 -> listaProdutos.add(produtos1));
+		
+		return ResponseEntity.ok(listaProdutos);
 	}
 	
 	@Transactional
