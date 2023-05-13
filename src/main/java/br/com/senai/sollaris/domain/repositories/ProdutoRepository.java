@@ -29,7 +29,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
 	
 	@Query("SELECT p FROM Produto p WHERE p.nome LIKE %:nome%")
 	Page<Produto> buscarProdutosPorNome(@Param("nome") String nome, Pageable pageable);
-
 	
+	@Query("SELECT p FROM Produto p JOIN p.produto_Detalhes pd WHERE pd.cor = :cor")
+	Page<Produto> buscarProdutosPorCor(@Param("cor") String cor, Pageable pageable);
 
 }

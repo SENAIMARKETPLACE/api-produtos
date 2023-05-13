@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,13 +114,24 @@ public class ProdutoService {
 			return ResponseEntity.ok(produtos);
 			
 	}
+	
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCor(String cor, Pageable pageable) {
+		Page<ReturnProdutoDto> produtos = produtoRepository.buscarProdutosPorCor(cor, pageable)
+				.map(ReturnProdutoDto::new);
+		
+		if(produtos.isEmpty())
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		
+		return ResponseEntity.ok(produtos);
+		
+}
 	 
 	public ResponseEntity<List<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, Pageable pageable) {
 		Page<ReturnProdutoDto> produtos = produtoRepository.findBySubCategoria_Categoria_id(id, pageable)
 				.map(ReturnProdutoDto::new);
 			
 		if(produtos.isEmpty())
-			return ResponseEntity.ok(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		
 		List<ReturnProdutoDto> listaProdutos = new ArrayList<>();
 		

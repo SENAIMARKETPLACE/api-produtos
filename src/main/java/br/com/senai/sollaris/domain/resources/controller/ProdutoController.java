@@ -78,6 +78,11 @@ public class ProdutoController {
 		return produtoService.listarProdutoPorCategoria(id, pageable);
 	}
 	
+	@GetMapping("color/{cor}")
+	public ResponseEntity<Page<ReturnProdutoDto>> listarProdutoPorCor(@PathVariable String cor, Pageable pageable) {
+		return produtoService.listarProdutoPorCor(cor, pageable);
+	}
+	
 	@PostMapping
 	public ResponseEntity<ReturnProdutoDto> cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto, UriComponentsBuilder uriBuilder) {
 		 return produtoService.cadastrarProduto(produtoDto, uriBuilder);
