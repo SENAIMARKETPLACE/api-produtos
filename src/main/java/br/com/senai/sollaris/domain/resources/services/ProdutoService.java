@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -126,7 +127,7 @@ public class ProdutoService {
 		
 }
 	 
-	public ResponseEntity<List<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, Pageable pageable) {
+	public ResponseEntity<List<ReturnProdutoDto>> listarProdutoPorCategoria(Integer id, @PageableDefault(size = 10) Pageable pageable) {
 		Page<ReturnProdutoDto> produtos = produtoRepository.findBySubCategoria_Categoria_id(id, pageable)
 				.map(ReturnProdutoDto::new);
 			

@@ -1,5 +1,5 @@
 package br.com.senai.sollaris.domain.enums;
 
 public enum Publico {
-	MASCULINO, FEMININO, UNISSEX, CRIANCA
+	MASCULINO, FEMININO, UNISSEX, CRIANÇA
 }
